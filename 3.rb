@@ -1,6 +1,8 @@
 # encoding: utf-8
 require 'bundler'
 
+# example: ruby 3.rb ~/projects/rubygems.org master config/
+
 Bundler.require
 
 require 'uri'
