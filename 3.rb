@@ -5,9 +5,10 @@ Bundler.require
 
 require 'uri'
 
-REPOSITORY_PATH = ARGV.first or raise "repository_path required"
+REPOSITORY_PATH = ARGV.first or raise "usage: #{$0} REPOSITORY_PATH (BRANCH) (FILTER)"
 
 BRANCH = ARGV[1] || 'master'
+FILTER = Regexp.new('^' + (ARGV[2] || 'lib/'))
 
 # hrforecast
 def graph_post(service_name, section_name, graph_name, number, datetime)
@@ -35,7 +36,7 @@ end
 repository = Grit::Repo.new(REPOSITORY_PATH)
 all_commits(repository, BRANCH) { |commit|
     commit.stats.to_diffstat.each{ |stat|
-        next unless stat.filename =~ /^lib/
+        next unless stat.filename =~ FILTER
         blob = commit.tree / stat.filename
         next unless blob
         size = blob.data.split(/\n/).length
