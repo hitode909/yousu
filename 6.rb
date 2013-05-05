@@ -104,9 +104,9 @@ all_file_names.to_a.sort.each{ |name|
     puts csv(name, get_rate_for_file(commits, name), get_commit_count_for_file(commits, name))
 }
 
-puts "edgedef>" +csv("node1 VARCHAR", "node2 VARCHAR", "directed BOOLEAN", "rate DOUBLE", "count INTEGER")
+puts "edgedef>" + csv("node1 VARCHAR", "node2 VARCHAR", "directed BOOLEAN", "rate DOUBLE", "count INTEGER", "weight DOUBLE")
 each_unique_pair(all_file_names.to_a.sort) { |a, b|
     rate = get_rate_for_pair(commits, a, b)
     next if rate < 0.01
-    puts csv(a,b,false, rate, get_count_for_pair(commits, a, b))
+    puts csv(a,b,false, rate, get_count_for_pair(commits, a, b), rate)
 }
