@@ -96,7 +96,7 @@ all_commits(repository, BRANCH) { |commit|
 }
 ids = IdsGenerator.new
 
-all_file_names = Set.new(all_file_names.select{ |name| name =~ /^app/ }
+all_file_names = Set.new(all_file_names.select{ |name| name =~ /^app/ })
 
 
 puts "nodedef>" + csv("name varchar", "rate DOUBLE", "commit_count INTEGER")
